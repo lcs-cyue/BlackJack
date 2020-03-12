@@ -19,6 +19,7 @@ enum Rank : Int {
     case ace = 1, two, three, four, five, six, seven, eight, nine, ten, jack, queen, king
     
     
+    
     // Computed property to return rank
     // Really just a convenience property to make code more readable, it returns the raw value of the enumeration case but using the property name of "rank"
     var rank : Int {
@@ -28,11 +29,21 @@ enum Rank : Int {
         }
         
     }
+    
+    // Computed property to return lowest rank
+       static var lowestRank: Int {
+           return 1
+       }
 
-    //    // Does one rank (this instance) beat another rank?
-    //    func beats(_ otherRank: Rank) -> Bool {
-    //        return self.rank > otherRank.rank
-    //    }
+       // Computed property to return highest rank
+       static var highestRank: Int {
+           return 13
+       }
+
+        // Does one rank (this instance) beat another rank?
+        func beats(_ otherRank: Rank) -> Bool {
+            return self.rank > otherRank.rank
+        }
     
     
     // Report the simple description of this rank

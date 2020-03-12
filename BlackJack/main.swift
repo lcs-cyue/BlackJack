@@ -8,7 +8,10 @@
 
 import Foundation
 
+
 class BlackJack {
+    
+    
     
     init() {
         
@@ -20,9 +23,18 @@ class BlackJack {
         player2 = Hand(description: "player2")
         pile = Hand(description: "pile")
         
+        
         // Set initial defence and offence sides
         defence = player1
         offence = player2
+        
+        // Game is about to start
+        print("==========")
+        print("START GAME")
+        print("==========\n")
+        
+        play()
+        
     }
     
     // The deck of cards
@@ -38,7 +50,18 @@ class BlackJack {
     var pile : Hand
     
     
+    private func play() {
+        keyPress()
+        
+    }
     
-    
+    func keyPress() {
+        print("Press 'Y' to continue drawing", terminator: "y")
+        readLine()
+    }
     
 }
+
+
+let aGame = BlackJack()
+
