@@ -25,6 +25,7 @@ class BlackJack {
     var pile : Hand
     
     
+    
     init() {
         
         // Make a deck of cards
@@ -36,19 +37,16 @@ class BlackJack {
         pile = Hand(description: "pile")
         
         
-        // Deal 3 cards to player1
-        if let newCards = self.deck.randomlyDealOut(thisManyCards: 3) {
-            player1.cards = newCards
-        }
-        
-        // Deal 3 cards to player2
-        if let newCards = self.deck.randomlyDealOut(thisManyCards: 3) {
-            player2.cards = newCards
-        }
-        
         // Set initial defence and offence sides
-        defence = player1
-        offence = player2
+              defence = player1
+              offence = player2
+        
+        
+        // Deal 3 cards to offence
+        if let newCard = self.deck.randomlyDealOut(thisManyCards: 1) {
+            offence.cards = newCard
+        }
+      
         
         // Game is about to start
         print("==========")
@@ -72,10 +70,12 @@ class BlackJack {
         //        // What's in the pile?
         //        describeCards(in: pile)
         
+       
+        
         func confrontation () {
             
-            // defence can draw 3 cards from the pile
-            let newCard = defence.dealTopCard()
+        
+            
             
             switchOffence()
             //            offence.cards.append(newCard)
@@ -125,7 +125,7 @@ class BlackJack {
         while true {
             
             // Ask for input
-            print("Do you wish to continue to draw?         Press 0 to stop, press any positive number to continue.")
+            print("Do you wish to continue to draw?         Press 0 to stop, press any other integer to continue.")
             guard let inputGiven = readLine() else {
                 
                 // No input given, return to top of loop and ask again
@@ -136,25 +136,29 @@ class BlackJack {
             guard let integerGiven = Int(inputGiven) else {
                 
                 // Could not make input into an integer, so return to top and ask again
-                print("Please input a number")
+                print("Please input an integer")
                 continue
             }
             
             // Check that integer is in desired range
             // REMEMBER: Guard statement conditions describe what we WANT
-            guard integerGiven <= 0 else {
+            guard integerGiven == 0 else {
                 
                 // Integer not in desired range, return to top and ask again
                 continue
+                let newCard = offence.dealTopCard()
+                //offence.cards.append(newCard)
+             
                 
             }
+            
+            
+            print("The program will stop. Thank you for playing BlackJack.")
             
             
             // Stop looping
             break
-            func stop() {
-                print("The program will stop. Thank you for playing BlackJack.")
-            }
+            
             
         }
         
