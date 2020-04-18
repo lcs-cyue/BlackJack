@@ -14,6 +14,7 @@ class Hand {
     // Properties
     var cards : [Card]
     var description : String
+    var rank : [Rank]
 
     // Initializer(s)
     init(description : String) {
