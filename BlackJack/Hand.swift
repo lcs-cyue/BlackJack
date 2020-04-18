@@ -20,6 +20,7 @@ class Hand {
     init(description : String) {
         self.cards = []
         self.description = description
+        self.rank = []
     }
     
     // Print status of this hand
