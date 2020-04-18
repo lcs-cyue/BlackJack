@@ -121,6 +121,43 @@ class BlackJack {
     
     private func play() {
         
+        // Loop until valid input provided by user
+        while true {
+            
+            // Ask for input
+            print("Do you wish to continue to draw?         Press 0 to stop, press any positive number to continue.")
+            guard let inputGiven = readLine() else {
+                
+                // No input given, return to top of loop and ask again
+                continue
+            }
+            
+            // Attempt to make input into an integer
+            guard let integerGiven = Int(inputGiven) else {
+                
+                // Could not make input into an integer, so return to top and ask again
+                print("Please input a number")
+                continue
+            }
+            
+            // Check that integer is in desired range
+            // REMEMBER: Guard statement conditions describe what we WANT
+            guard integerGiven <= 0 else {
+                
+                // Integer not in desired range, return to top and ask again
+                continue
+                
+            }
+            
+            
+            // Stop looping
+            break
+            func stop() {
+                print("The program will stop. Thank you for playing BlackJack.")
+            }
+            
+        }
+        
         //if the total value is greater than 21, you lost this round
         if offence.rank.count >= 21 {
             print("you are doomed")
