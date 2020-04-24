@@ -20,6 +20,7 @@ class BlackJack {
     var player2 : Hand
     var offence : Hand
     var defence : Hand
+    var newCard : Hand
     
     // The pile
     var pile : Hand
@@ -35,6 +36,7 @@ class BlackJack {
         player1 = Hand(description: "player1")
         player2 = Hand(description: "player2")
         pile = Hand(description: "pile")
+        newCard = Hand(description: "newCard")
         
         
         // Set initial defence and offence sides
@@ -42,7 +44,6 @@ class BlackJack {
               offence = player2
         
         
-        // Deal 3 cards to offence
         if let newCard = self.deck.randomlyDealOut(thisManyCards: 1) {
             offence.cards = newCard
         }
@@ -78,7 +79,7 @@ class BlackJack {
             
             
             switchOffence()
-            //            offence.cards.append(newCard)
+
             
             
         }
@@ -125,7 +126,7 @@ class BlackJack {
         while true {
             
             // Ask for input
-            print("Do you wish to continue to draw?         Press 0 to stop, press any other integer to continue.")
+            print("Press 0: stop drawing; Press any other integer: continue drawing")
             guard let inputGiven = readLine() else {
                 
                 // No input given, return to top of loop and ask again
@@ -144,16 +145,18 @@ class BlackJack {
             // REMEMBER: Guard statement conditions describe what we WANT
             guard integerGiven == 0 else {
                 
+                let newCard = offence.dealTopCard()
+                offence.cards.append(newCard!)
+                print("Now you have \(offence.cards) ")
                 // Integer not in desired range, return to top and ask again
                 continue
-                let newCard = offence.dealTopCard()
-                //offence.cards.append(newCard)
+               
              
                 
             }
             
             
-            print("The program will stop. Thank you for playing BlackJack.")
+            print("Now is other player's turn to draw.")
             
             
             // Stop looping
