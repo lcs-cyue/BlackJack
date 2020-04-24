@@ -47,7 +47,8 @@ class BlackJack {
         if let newCard = self.deck.randomlyDealOut(thisManyCards: 1) {
             offence.cards = newCard
         }
-      
+        
+        
         
         // Game is about to start
         print("==========")
@@ -114,7 +115,6 @@ class BlackJack {
         // defence beats offence, now switch roles
         switchOffence()
         
-        
     }
     
     
@@ -126,7 +126,7 @@ class BlackJack {
         while true {
             
             // Ask for input
-            print("Press 0: stop drawing; Press any other integer: continue drawing")
+            print("Press 0: stop the game; Press 1: stop drawing; Press any other integer: continue drawing")
             guard let inputGiven = readLine() else {
                 
                 // No input given, return to top of loop and ask again
@@ -141,49 +141,79 @@ class BlackJack {
                 continue
             }
             
+            // Function to check if the total value is greater than 21
+            func check21() {
+                //if the total value is greater than 21, you lost this round
+                if offence.rank.count >= 21 {
+                    print("you are doomed")
+                }
+                
+                if defence.rank.count >= 21 {
+                    print("you are doomed")
+                }
+            }
+            
+            // Function to check if the value is greater than 17
+            func check17() {
+                //display a warning message if the value surpasses 17
+                if offence.rank.count >= 17 && offence.rank.count < 21 {
+                    print("Your total card value is over 17. Do you still want to continue drawing?")
+                }
+                
+                if defence.rank.count >= 17 && defence.rank.count < 21 {
+                    print("Your total card value is over 17. Do you still want to continue drawing?")
+                }
+            }
+            
             // Check that integer is in desired range
             // REMEMBER: Guard statement conditions describe what we WANT
-            guard integerGiven == 0 else {
+            guard integerGiven <= 1 else {
                 
                 let newCard = offence.dealTopCard()
                 offence.cards.append(newCard!)
                 print("Now you have \(offence.cards) ")
                 // Integer not in desired range, return to top and ask again
+                check21()
+                check17()
                 continue
                
              
                 
             }
             
+            // Function to compare the final value of player1&2
+            func compareValue() {
+                if player1.rank.count > player2.rank.count {
+                    print("Player 1 wins!")
+                } else if player2.rank.count > player1.rank.count {
+                    print("Player 2 wins!")
+                } else {
+                    print("It's a tie!")
+                }
+            }
             
-            print("Now is other player's turn to draw.")
             
             
-            // Stop looping
-            break
+            if integerGiven == 1 {
+                compareValue()
+                print("Now is other player's turn to draw.")
+                continue
+            }
+            
+            if integerGiven == 0 {
+                print("Game process will now stop. Thank you for playing BlackJack.")
+                break
+            }
+            
+            
             
             
         }
         
-        //if the total value is greater than 21, you lost this round
-        if offence.rank.count >= 21 {
-            print("you are doomed")
-        }
         
-        if defence.rank.count >= 21 {
-            print("you are doomed")
-        }
         
-        //player1 starts drawing the top card by pressing "Y" and ends drawing by pressing "N"
         
-        //display a warning message if the value surpasses 17
-        
-        //player2 starts drawing the top card by pressing "Y" and ends drawing by pressing "N"
-        
-        //display a warning message if the value surpasses 17
-        
-        //compare the final value of player1&2
-        
+
         //determine the winner for the round, display score
         
         //repeat until one player wins 10 rounds
