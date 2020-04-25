@@ -160,8 +160,30 @@ class BlackJack {
             
             // Check that integer is in desired range
             // REMEMBER: Guard statement conditions describe what we WANT
+            
+            func appendCard() {
+                // Get a random value between 0 and the end of the deck array
+                var randomCardPosition = Int.random(in: 0...deck.cards.count - 1)
+                
+                // Add to the player's hand
+                defence.cards.append(deck.cards[randomCardPosition])
+                
+                // Remove the card from the deck
+                deck.cards.remove(at: randomCardPosition)
+                
+                //picking the card position for player2
+//                randomCardPosition = Int.random(in: 0...deck.rank.count - 1)
+                
+                //adds to the player2's hand
+                offence.cards.append(deck.cards[randomCardPosition])
+                
+                // Remove the card from the deck
+                deck.cards.remove(at: randomCardPosition)
+            }
+            
             guard integerGiven <= 1 else {
                 
+                appendCard()
                 addPoint()
                 print("Now you have \(offence.cards) ")
                 // Integer not in desired range, return to top and ask again
@@ -173,25 +195,7 @@ class BlackJack {
                 
             }
             
-            func appendCard() {
-                // Get a random value between 0 and the end of the deck array
-                var randomCardPosition = Int.random(in: 0...deck.cards.count - 1)
-                
-                // Add to the player's hand
-                player1.cards.append(deck.cards[randomCardPosition])
-                
-                // Remove the card from the deck
-                deck.cards.remove(at: randomCardPosition)
-                
-                //picking the card position for player2
-                randomCardPosition = Int.random(in: 0...deck.rank.count - 1)
-                
-                //adds to the player2's hand
-                player2.cards.append(deck.cards[randomCardPosition])
-                
-                // Remove the card from the deck
-                deck.cards.remove(at: randomCardPosition)
-            }
+            
             
             
             // Function to compare the final value of player1&2
