@@ -62,17 +62,10 @@ class BlackJack {
         
     }
     
+   
+ 
     
-    // Deal a card from the offence's hand
-    private func deal() {
-        
-        // Deal from offence's hand to the pile
-        pile.cards.append(offence.dealTopCard()!)
-        
-        //        // What's in the pile?
-        //        describeCards(in: pile)
-        
-    
+   
         
         // Changes the current offence to become the defence, and vice versa
         func switchOffence() {
@@ -93,10 +86,7 @@ class BlackJack {
             }
         }
         
-        // defence beats offence, now switch roles
-        switchOffence()
         
-    }
     
    
     //Add a point to the winner
@@ -189,9 +179,8 @@ class BlackJack {
                 // Integer not in desired range, return to top and ask again
                 check21()
                 check17()
+                switchOffence()
                 continue
-                
-                
                 
             }
             
@@ -211,6 +200,8 @@ class BlackJack {
             
             
             if integerGiven == 1 {
+                
+                switchOffence()
                 compareValue()
                 print("Now is other player's turn to draw.")
                 continue
