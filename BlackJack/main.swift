@@ -20,6 +20,7 @@ class BlackJack {
     var player2 : Hand
     var offence : Hand
     var defence : Hand
+    var yourTurn : Hand
 //    var newCard : Hand
     private var score = 0
     
@@ -43,6 +44,8 @@ class BlackJack {
         defence = player1
         offence = player2
         
+        // Set yourTurn hand
+        yourTurn = Hand(description: "yourTurn")
 
 //        if let newCard = self.deck.randomlyDealOut(thisManyCards: 1) {
 //            offence.cards = newCard
@@ -85,6 +88,18 @@ class BlackJack {
                 defence = player2
             }
         }
+    
+    func switchTurn() {
+        print("\nSwitching turn...")
+        
+        if yourTurn === player1 {
+            print("\nSwitching turn to Player 2")
+            yourTurn = player2
+        } else {
+            print("\nSwitching turn to Player 1")
+            yourTurn = player1
+        }
+    }
         
         
     
@@ -105,6 +120,7 @@ class BlackJack {
     
     private func play() {
         
+        yourTurn = player1
         // Loop until valid input provided by user
         while true {
             
@@ -127,11 +143,11 @@ class BlackJack {
             // Function to check if the total value is greater than 21
             func check21() {
                 //if the total value is greater than 21, you lost this round
-                if offence.rank.count >= 21 {
+                if player1.rank.count >= 21 {
                     print("you are doomed")
                 }
                 
-                if defence.rank.count >= 21 {
+                if player2.rank.count >= 21 {
                     print("you are doomed")
                 }
             }
@@ -139,11 +155,11 @@ class BlackJack {
             // Function to check if the value is greater than 17
             func check17() {
                 //display a warning message if the value surpasses 17
-                if offence.rank.count >= 17 && offence.rank.count < 21 {
+                if player1.rank.count >= 17 && player1.rank.count < 21 {
                     print("Your total card value is over 17. Do you still want to continue drawing?")
                 }
                 
-                if defence.rank.count >= 17 && defence.rank.count < 21 {
+                if player2.rank.count >= 17 && player2.rank.count < 21 {
                     print("Your total card value is over 17. Do you still want to continue drawing?")
                 }
             }
@@ -156,7 +172,7 @@ class BlackJack {
                 var randomCardPosition = Int.random(in: 0...deck.cards.count - 1)
                 
                 // Add to the player's hand
-                defence.cards.append(deck.cards[randomCardPosition])
+                yourTurn.cards.append(deck.cards[randomCardPosition])
                 
                 // Remove the card from the deck
                 deck.cards.remove(at: randomCardPosition)
@@ -165,21 +181,20 @@ class BlackJack {
 //                randomCardPosition = Int.random(in: 0...deck.rank.count - 1)
                 
                 //adds to the player2's hand
-                offence.cards.append(deck.cards[randomCardPosition])
+//                offence.cards.append(deck.cards[randomCardPosition])
                 
                 // Remove the card from the deck
-                deck.cards.remove(at: randomCardPosition)
+//                deck.cards.remove(at: randomCardPosition)
             }
             
             guard integerGiven <= 1 else {
                 
                 appendCard()
                 addPoint()
-                print("Now you have \(offence.cards) ")
+                print("Now you have \(yourTurn.cards) ")
                 // Integer not in desired range, return to top and ask again
                 check21()
                 check17()
-                switchOffence()
                 continue
                 
             }
@@ -201,7 +216,7 @@ class BlackJack {
             
             if integerGiven == 1 {
                 
-                switchOffence()
+                switchTurn()
                 compareValue()
                 print("Now is other player's turn to draw.")
                 continue
