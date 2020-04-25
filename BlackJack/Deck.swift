@@ -13,13 +13,15 @@ struct Deck {
     
     // Properties
     var cards : [Card]
-    
+    var deck : [Deck]
+    var rank : [Rank]
     // Initializer
     init() {
         
         // Initalize the deck of cards
-        cards = []
-        
+        self.cards = []
+        self.deck = []
+        self.rank = []
         // Iterate through suits
         for suit in Suit.lowestRank...Suit.highestRank {
             

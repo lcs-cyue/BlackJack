@@ -20,11 +20,11 @@ class BlackJack {
     var player2 : Hand
     var offence : Hand
     var defence : Hand
-    var newCard : Hand
+//    var newCard : Hand
+    private var score = 0
     
     // The pile
     var pile : Hand
-    
     
     
     init() {
@@ -36,18 +36,18 @@ class BlackJack {
         player1 = Hand(description: "player1")
         player2 = Hand(description: "player2")
         pile = Hand(description: "pile")
-        newCard = Hand(description: "newCard")
+//        newCard = Hand(description: "newCard")
         
         
         // Set initial defence and offence sides
-              defence = player1
-              offence = player2
+        defence = player1
+        offence = player2
         
-        
-        if let newCard = self.deck.randomlyDealOut(thisManyCards: 1) {
-            offence.cards = newCard
-        }
-        
+
+//        if let newCard = self.deck.randomlyDealOut(thisManyCards: 1) {
+//            offence.cards = newCard
+//        }
+//
         
         
         // Game is about to start
@@ -72,42 +72,23 @@ class BlackJack {
         //        // What's in the pile?
         //        describeCards(in: pile)
         
-       
-        
-        func confrontation () {
-            
-        
-            
-            
-            switchOffence()
-
-            
-            
-        }
-        
-        
-        // Check for confrontation
-        if offence.rank.count <= 11 {
-            confrontation()
-        }
-        
-        
-        
+    
         
         // Changes the current offence to become the defence, and vice versa
         func switchOffence() {
             
+            
             print("\nChanging roles...")
             
             if offence === player1 {
-                print("\nOffence: Computer")
+                print("\nOffence: player2")
                 offence = player2
                 print("Defence: Player\n")
                 defence = player1
             } else {
                 print("\nOffence: Player")
                 offence = player1
-                print("Defence: Computer\n")
+                print("Defence: player2\n")
                 defence = player2
             }
         }
@@ -117,6 +98,18 @@ class BlackJack {
         
     }
     
+   
+    //Add a point to the winner
+    func addPoint() {
+        if offence.rank.count >= defence.rank.count {
+            score += 1
+        } else if defence.rank.count >= offence.rank.count {
+            score += 1
+        }else if defence.rank.count == offence.rank.count {
+            score += 0
+        }
+        //score.append
+    }
     
     
     
@@ -169,17 +162,37 @@ class BlackJack {
             // REMEMBER: Guard statement conditions describe what we WANT
             guard integerGiven <= 1 else {
                 
-                let newCard = offence.dealTopCard()
-                offence.cards.append(newCard!)
+                addPoint()
                 print("Now you have \(offence.cards) ")
                 // Integer not in desired range, return to top and ask again
                 check21()
                 check17()
                 continue
-               
-             
+                
+                
                 
             }
+            
+            func appendCard() {
+                // Get a random value between 0 and the end of the deck array
+                var randomCardPosition = Int.random(in: 0...deck.cards.count - 1)
+                
+                // Add to the player's hand
+                player1.cards.append(deck.cards[randomCardPosition])
+                
+                // Remove the card from the deck
+                deck.cards.remove(at: randomCardPosition)
+                
+                //picking the card position for player2
+                randomCardPosition = Int.random(in: 0...deck.rank.count - 1)
+                
+                //adds to the player2's hand
+                player2.cards.append(deck.cards[randomCardPosition])
+                
+                // Remove the card from the deck
+                deck.cards.remove(at: randomCardPosition)
+            }
+            
             
             // Function to compare the final value of player1&2
             func compareValue() {
@@ -191,7 +204,6 @@ class BlackJack {
                     print("It's a tie!")
                 }
             }
-            
             
             
             if integerGiven == 1 {
@@ -213,7 +225,12 @@ class BlackJack {
         
         
         
-
+        //not finished yet
+        func reportStats() {
+            print()
+        }
+        
+        
         //determine the winner for the round, display score
         
         //repeat until one player wins 10 rounds

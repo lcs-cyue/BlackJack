@@ -15,12 +15,14 @@ class Hand {
     var cards : [Card]
     var description : String
     var rank : [Rank]
+    var deck : [Deck]
 
     // Initializer(s)
     init(description : String) {
         self.cards = []
         self.description = description
         self.rank = []
+        self.deck = []
     }
     
     // Print status of this hand
