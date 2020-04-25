@@ -18,12 +18,10 @@ class BlackJack {
     // The hands for each player
     var player1 : Hand
     var player2 : Hand
-    var offence : Hand
-    var defence : Hand
     var yourTurn : Hand
-//    var newCard : Hand
-    private var score = 0
-    
+    //    var newCard : Hand
+    var player1score = 0
+    var player2score = 0
     // The pile
     var pile : Hand
     
@@ -37,20 +35,12 @@ class BlackJack {
         player1 = Hand(description: "player1")
         player2 = Hand(description: "player2")
         pile = Hand(description: "pile")
-//        newCard = Hand(description: "newCard")
+        //        newCard = Hand(description: "newCard")
         
-        
-        // Set initial defence and offence sides
-        defence = player1
-        offence = player2
         
         // Set yourTurn hand
         yourTurn = Hand(description: "yourTurn")
-
-//        if let newCard = self.deck.randomlyDealOut(thisManyCards: 1) {
-//            offence.cards = newCard
-//        }
-//
+        
         
         
         // Game is about to start
@@ -65,29 +55,9 @@ class BlackJack {
         
     }
     
-   
- 
     
-   
-        
-        // Changes the current offence to become the defence, and vice versa
-        func switchOffence() {
-            
-            
-            print("\nChanging roles...")
-            
-            if offence === player1 {
-                print("\nOffence: player2")
-                offence = player2
-                print("Defence: Player\n")
-                defence = player1
-            } else {
-                print("\nOffence: Player")
-                offence = player1
-                print("Defence: player2\n")
-                defence = player2
-            }
-        }
+    
+    
     
     func switchTurn() {
         print("\nSwitching turn...")
@@ -99,21 +69,6 @@ class BlackJack {
             print("\nSwitching turn to Player 1")
             yourTurn = player1
         }
-    }
-        
-        
-    
-   
-    //Add a point to the winner
-    func addPoint() {
-        if offence.rank.count >= defence.rank.count {
-            score += 1
-        } else if defence.rank.count >= offence.rank.count {
-            score += 1
-        }else if defence.rank.count == offence.rank.count {
-            score += 0
-        }
-        //score.append
     }
     
     
@@ -164,8 +119,17 @@ class BlackJack {
                 }
             }
             
-            // Check that integer is in desired range
-            // REMEMBER: Guard statement conditions describe what we WANT
+            
+            //report how many rounds each player has won after each round
+            func reportStats() {
+                if yourTurn === player2 {
+                    print("player 1 has won \(player1score) rounds so far")
+                    print("player 2 has won \(player2score) rounds so far")
+                }
+            }
+            
+            
+            
             
             func appendCard() {
                 // Get a random value between 0 and the end of the deck array
@@ -178,19 +142,19 @@ class BlackJack {
                 deck.cards.remove(at: randomCardPosition)
                 
                 //picking the card position for player2
-//                randomCardPosition = Int.random(in: 0...deck.rank.count - 1)
+                //                randomCardPosition = Int.random(in: 0...deck.rank.count - 1)
                 
                 //adds to the player2's hand
-//                offence.cards.append(deck.cards[randomCardPosition])
+                //                offence.cards.append(deck.cards[randomCardPosition])
                 
                 // Remove the card from the deck
-//                deck.cards.remove(at: randomCardPosition)
+                //                deck.cards.remove(at: randomCardPosition)
             }
             
+            //If the integer given does not equal to 1, continue drawing
             guard integerGiven <= 1 else {
                 
                 appendCard()
-                addPoint()
                 print("Now you have \(yourTurn.cards) ")
                 // Integer not in desired range, return to top and ask again
                 check21()
@@ -206,18 +170,23 @@ class BlackJack {
             func compareValue() {
                 if player1.rank.count > player2.rank.count {
                     print("Player 1 wins!")
+                    player1score += 1
                 } else if player2.rank.count > player1.rank.count {
                     print("Player 2 wins!")
-                } else {
+                    player2score += 1
+                } else if player1.rank.count == player2.rank.count{
                     print("It's a tie!")
                 }
             }
             
             
+            //If the integer given equals to 1, switch to the other player
             if integerGiven == 1 {
                 
-                switchTurn()
                 compareValue()
+                reportStats()
+                switchTurn()
+                
                 print("Now is other player's turn to draw.")
                 continue
             }
@@ -235,10 +204,6 @@ class BlackJack {
         
         
         
-        //not finished yet
-        func reportStats() {
-            print()
-        }
         
         
         //determine the winner for the round, display score
