@@ -164,18 +164,22 @@ class BlackJack {
             }
             
             
-            
+//            let total = [yourTurn.cards]
+//            let sum = total.reduce(0, +)
+//            print("Sum of Array is : ", sum)
             
             // Function to compare the final value of player1&2
             func compareValue() {
-                if player1.rank.count > player2.rank.count {
-                    print("Player 1 wins!")
-                    player1score += 1
-                } else if player2.rank.count > player1.rank.count {
-                    print("Player 2 wins!")
-                    player2score += 1
-                } else if player1.rank.count == player2.rank.count{
-                    print("It's a tie!")
+                if yourTurn === player2 {
+                    if player1.rank.count > player2.rank.count {
+                        print("Player 1 wins!")
+                        player1score += 1
+                    } else if player2.rank.count > player1.rank.count {
+                        print("Player 2 wins!")
+                        player2score += 1
+                    } else if player1.rank.count == player2.rank.count{
+                        print("It's a tie!")
+                    }
                 }
             }
             
