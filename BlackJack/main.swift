@@ -141,14 +141,6 @@ class BlackJack {
                 // Remove the card from the deck
                 deck.cards.remove(at: randomCardPosition)
                 
-                //picking the card position for player2
-                //                randomCardPosition = Int.random(in: 0...deck.rank.count - 1)
-                
-                //adds to the player2's hand
-                //                offence.cards.append(deck.cards[randomCardPosition])
-                
-                // Remove the card from the deck
-                //                deck.cards.remove(at: randomCardPosition)
             }
             
             //If the integer given does not equal to 1, continue drawing
@@ -217,7 +209,6 @@ class BlackJack {
     }
     
     
-    // example
 }
 
 
