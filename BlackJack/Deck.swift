@@ -1,8 +1,9 @@
 //
 //  Deck.swift
-//  AlternateCommandLineWar
+//  BlackJack
 //
-//  Created by Gordon, Russell on 2020-02-12.
+//  Provided by Gordon, Russell on 2020-02-12.
+//  Modified by Yue, Chelsea and Lu, Maxwell
 //  Copyright © 2020 Gordon, Russell. All rights reserved.
 //
 
